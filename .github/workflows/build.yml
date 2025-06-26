@@ -6,21 +6,20 @@ on:
   pull_request:
 
 jobs:
-  build-windows-exe:
+  build-windows:
     runs-on: windows-latest
 
     steps:
-    - name: Check out code
+    - name: Checkout repo
       uses: actions/checkout@v3
 
     - name: Install MinGW
       run: choco install mingw --no-progress
 
-    - name: Compile fixIE11SE.exe
-      run: |
-        gcc fixIE11SE.c -o fixIE11SE.exe -mwindows
+    - name: Compile fixIE11SE.c to .exe
+      run: gcc fixIE11SE.c -o fixIE11SE.exe -mwindows
 
-    - name: Upload .exe as artifact
+    - name: Upload compiled exe
       uses: actions/upload-artifact@v4
       with:
         name: fixIE11SE-windows
